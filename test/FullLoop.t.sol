@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import { Test } from "forge-std/Test.sol";
-import { Vm } from "forge-std/Vm.sol";
-import { IReactive } from "@reactive/interfaces/IReactive.sol";
+import {Test} from "forge-std/Test.sol";
+import {Vm} from "forge-std/Vm.sol";
+import {IReactive} from "@reactive/interfaces/IReactive.sol";
 
-import { DemoVault } from "../src/DemoVault.sol";
-import { Attacker } from "../src/Attacker.sol";
-import { ReactiveVaultGuard } from "../src/ReactiveVaultGuard.sol";
-import { VaultGuardCallback } from "../src/VaultGuardCallback.sol";
-import { MockSystemContract, MockCallbackProxy } from "./VaultGuard.t.sol";
-import { IPayable } from "@reactive/interfaces/IPayable.sol";
+import {DemoVault} from "../src/DemoVault.sol";
+import {Attacker} from "../src/Attacker.sol";
+import {ReactiveVaultGuard} from "../src/ReactiveVaultGuard.sol";
+import {VaultGuardCallback} from "../src/VaultGuardCallback.sol";
+import {MockSystemContract, MockCallbackProxy} from "./VaultGuard.t.sol";
+import {IPayable} from "@reactive/interfaces/IPayable.sol";
 
 /// @title FullLoop - end-to-end LOCAL simulation of the cross-chain guard pipeline.
 /// @notice Nothing here talks to a network. The attacker storm runs against the real
@@ -46,7 +46,11 @@ contract FullLoopTest is Test {
 
     /// @dev Converts real emitted logs into IReactive.LogRecord the way the Reactive
     ///      Network delivers them (same chainId/contract/topics/data; one record per log).
-    function _toLogRecords(Vm.Log[] memory logs_, uint256 txHash_) internal view returns (IReactive.LogRecord[] memory) {
+    function _toLogRecords(Vm.Log[] memory logs_, uint256 txHash_)
+        internal
+        view
+        returns (IReactive.LogRecord[] memory)
+    {
         uint256 n = 0;
         for (uint256 i = 0; i < logs_.length; i++) {
             if (logs_[i].emitter == address(vault) && uint256(logs_[i].topics[0]) == TOPIC0_WITHDRAWAL) n++;

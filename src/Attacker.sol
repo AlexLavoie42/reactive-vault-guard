@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import { DemoVault } from "./DemoVault.sol";
+import {DemoVault} from "./DemoVault.sol";
 
 /// @title Attacker - demo exploit contract (Base Sepolia, throwaway keys/testnet only).
 /// @notice Classic reentrancy storm against DemoVault's CEI-violating withdraw():

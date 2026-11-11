@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import { Script, console2 } from "forge-std/Script.sol";
-import { IPayable } from "@reactive/interfaces/IPayable.sol";
+import {Script, console2} from "forge-std/Script.sol";
+import {IPayable} from "@reactive/interfaces/IPayable.sol";
 
-import { DemoVault } from "../src/DemoVault.sol";
-import { Attacker } from "../src/Attacker.sol";
-import { VaultGuardCallback } from "../src/VaultGuardCallback.sol";
+import {DemoVault} from "../src/DemoVault.sol";
+import {Attacker} from "../src/Attacker.sol";
+import {VaultGuardCallback} from "../src/VaultGuardCallback.sol";
 
 /// @notice Deploys the Base Sepolia side of the ReactiveVaultGuard demo:
 ///         DemoVault (prefunded with fake TVL), Attacker, and - once the reactive guard

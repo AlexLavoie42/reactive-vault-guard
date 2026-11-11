@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import { AbstractCallback } from "@reactive/base/AbstractCallback.sol";
-import { IPayable } from "@reactive/interfaces/IPayable.sol";
+import {AbstractCallback} from "@reactive/base/AbstractCallback.sol";
+import {IPayable} from "@reactive/interfaces/IPayable.sol";
 
 interface IDemoVault {
     function paused() external view returns (bool);

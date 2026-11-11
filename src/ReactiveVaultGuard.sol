@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import { AbstractReactive } from "@reactive/base/AbstractReactive.sol";
-import { IReactive } from "@reactive/interfaces/IReactive.sol";
-import { ISystemContract } from "@reactive/interfaces/ISystemContract.sol";
+import {AbstractReactive} from "@reactive/base/AbstractReactive.sol";
+import {IReactive} from "@reactive/interfaces/IReactive.sol";
+import {ISystemContract} from "@reactive/interfaces/ISystemContract.sol";
 
 /// @title ReactiveVaultGuard - reactive security watchdog running on Reactive Network
 ///        (Lasna testnet, chain 5318007).

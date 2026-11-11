@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import { Script, console2 } from "forge-std/Script.sol";
+import {Script, console2} from "forge-std/Script.sol";
 
-import { DemoVault } from "../src/DemoVault.sol";
-import { Attacker } from "../src/Attacker.sol";
+import {DemoVault} from "../src/DemoVault.sol";
+import {Attacker} from "../src/Attacker.sol";
 
 /// @notice Live demo driver (Base Sepolia): funds the attacker, runs the reentrancy
 ///         storm, polls until the Reactive pause callback lands, then attempts the

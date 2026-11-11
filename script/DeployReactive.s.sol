@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import { Script, console2 } from "forge-std/Script.sol";
+import {Script, console2} from "forge-std/Script.sol";
 
-import { ReactiveVaultGuard } from "../src/ReactiveVaultGuard.sol";
+import {ReactiveVaultGuard} from "../src/ReactiveVaultGuard.sol";
 
 /// @notice Deploys ReactiveVaultGuard on Reactive Network (Lasna testnet, chain 5318007)
 ///         subscribed to DemoVault.Withdrawal on Base Sepolia (chain 84532).

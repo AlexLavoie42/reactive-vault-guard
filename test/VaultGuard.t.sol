@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.29;
 
-import { Test } from "forge-std/Test.sol";
-import { IReactive } from "@reactive/interfaces/IReactive.sol";
-import { ISystemContract } from "@reactive/interfaces/ISystemContract.sol";
-import { IPayable } from "@reactive/interfaces/IPayable.sol";
+import {Test} from "forge-std/Test.sol";
+import {IReactive} from "@reactive/interfaces/IReactive.sol";
+import {ISystemContract} from "@reactive/interfaces/ISystemContract.sol";
+import {IPayable} from "@reactive/interfaces/IPayable.sol";
 
-import { DemoVault } from "../src/DemoVault.sol";
-import { Attacker } from "../src/Attacker.sol";
-import { ReactiveVaultGuard } from "../src/ReactiveVaultGuard.sol";
-import { VaultGuardCallback } from "../src/VaultGuardCallback.sol";
+import {DemoVault} from "../src/DemoVault.sol";
+import {Attacker} from "../src/Attacker.sol";
+import {ReactiveVaultGuard} from "../src/ReactiveVaultGuard.sol";
+import {VaultGuardCallback} from "../src/VaultGuardCallback.sol";
 
 /// @dev Mock of the Reactive Network system contract (0x8888...8888). Records
 ///      subscriptions and callback requests so tests can assert on them.
@@ -33,9 +33,14 @@ contract MockSystemContract {
     Sub[] public subs;
     Cb[] public cbs;
 
-    function subscribe(uint256 chainId_, address contract_, uint256 topic0_, uint256 topic1_, uint256 topic2_, uint256 topic3_)
-        external
-    {
+    function subscribe(
+        uint256 chainId_,
+        address contract_,
+        uint256 topic0_,
+        uint256 topic1_,
+        uint256 topic2_,
+        uint256 topic3_
+    ) external {
         subs.push(Sub(chainId_, contract_, topic0_, topic1_, topic2_, topic3_));
     }
 
@@ -116,7 +121,9 @@ contract VaultGuardTest is Test {
         guard = new ReactiveVaultGuard{value: 1 ether}(BASE_SEPOLIA, address(vault), TOPIC0_WITHDRAWAL);
 
         mockProxy = new MockCallbackProxy();
-        callback = new VaultGuardCallback{value: 0.1 ether}(IPayable(payable(address(mockProxy))), address(guard), address(vault));
+        callback = new VaultGuardCallback{value: 0.1 ether}(
+            IPayable(payable(address(mockProxy))), address(guard), address(vault)
+        );
 
         vault.setPauser(address(callback));
         guard.setCallbackRecipient(address(callback));
@@ -126,11 +133,14 @@ contract VaultGuardTest is Test {
     //                         LogRecord construction                      //
     // ------------------------------------------------------------------ //
 
-    function _withdrawalLog(uint256 txHash_, uint256 blockNumber_, uint256 logIndex_, uint256 amount_, uint256 creditBefore_, uint256 balanceBefore_)
-        internal
-        view
-        returns (IReactive.LogRecord memory)
-    {
+    function _withdrawalLog(
+        uint256 txHash_,
+        uint256 blockNumber_,
+        uint256 logIndex_,
+        uint256 amount_,
+        uint256 creditBefore_,
+        uint256 balanceBefore_
+    ) internal view returns (IReactive.LogRecord memory) {
         return IReactive.LogRecord({
             chainId: BASE_SEPOLIA,
             contractAddress: address(vault),
@@ -237,7 +247,8 @@ contract VaultGuardTest is Test {
         _react(_withdrawalLog(0xE1, 500, 1, 0.01 ether, 0.1 ether, 0.99 ether));
 
         assertEq(MockSystemContract(payable(SYSTEM_ADDR)).cbsLength(), 1);
-        (uint256 cbChain, address cbRecipient, uint64 cbGas, bytes memory cbPayload) = MockSystemContract(payable(SYSTEM_ADDR)).cbs(0);
+        (uint256 cbChain, address cbRecipient, uint64 cbGas, bytes memory cbPayload) =
+            MockSystemContract(payable(SYSTEM_ADDR)).cbs(0);
         assertEq(cbChain, BASE_SEPOLIA);
         assertEq(cbRecipient, address(callback));
         assertGe(cbGas, 100_000);
